@@ -8,26 +8,30 @@ interface PostDetailPageProps {
 
 export default async function PostDetailPage({ params }: PostDetailPageProps) {
   const { slug } = await params;
-  const post = db.getPostBySlug(slug);
-
+  const post = await db.getPostBySlug(slug);
+  console.log(post);
   if (!post) {
     notFound();
   }
 
   return (
-    <main className="max-w-2xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-2">{post.title}</h1>
-      <div className="text-gray-600 mb-4">
-        By {post.author} • {new Date(post.publishedAt).toLocaleDateString()}
+    <main className="min-h-[90vh] flex items-center justify-center bg-gradient-to-br from-indigo-50 via-white to-teal-50 py-10 px-2">
+      <div className="card w-full max-w-2xl">
+        <h1 className="text-4xl font-extrabold mb-2 text-indigo-800 tracking-tight drop-shadow-sm">{post.title}</h1>
+        <div className="text-gray-500 mb-4 text-base">
+          By <span className="font-semibold text-gray-700">{post.author}</span> • <span className="text-indigo-500">{new Date(post.publishedAt).toLocaleDateString()}</span>
+        </div>
+        {post.coverImage && (
+          <img
+            src={post.coverImage}
+            alt={post.title}
+            className="w-full h-64 object-cover rounded-xl mb-6 shadow-md border border-gray-100"
+          />
+        )}
+        <div className="prose prose-lg max-w-none">
+          <ContentRenderer content={post.content} />
+        </div>
       </div>
-      {post.coverImage && (
-        <img
-          src={post.coverImage}
-          alt={post.title}
-          className="w-full h-64 object-cover rounded mb-6"
-        />
-      )}
-      <ContentRenderer content={post.content} />
     </main>
   );
 }

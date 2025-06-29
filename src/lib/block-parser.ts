@@ -24,7 +24,8 @@ function parseAttributes(attributeString: string): BlockAttributes {
 }
 
 // Parse content and extract blocks
-export function parseBlocks(content: string): (string | ParsedBlock)[] {
+export function parseBlocks(content: string | undefined | null): (string | ParsedBlock)[] {
+  if (!content) return [];
   const result: (string | ParsedBlock)[] = [];
   let lastIndex = 0;
   let match;

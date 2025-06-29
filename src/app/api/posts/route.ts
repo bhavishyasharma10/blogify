@@ -5,7 +5,7 @@ import { validateBlogPost } from '@/lib/validation';
 // GET /api/posts - Fetch all posts
 export async function GET() {
   try {
-    const posts = db.getAllPosts();
+    const posts = await db.getAllPosts();
     
     return NextResponse.json({
       success: true,
@@ -48,14 +48,15 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Create the post
-    const newPost = db.createPost({
+    // Create the post (await the async function!)
+    const newPost = await db.createPost({
       title: body.title.trim(),
       author: body.author.trim(),
       content: body.content.trim(),
       coverImage: body.coverImage?.trim() || undefined,
     });
     
+    // Return the full post object (including slug)
     return NextResponse.json({
       success: true,
       data: newPost,

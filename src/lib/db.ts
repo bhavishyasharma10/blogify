@@ -1,28 +1,23 @@
 import { BlogPost } from '@/types/blog';
+import path from 'path';
+import { promises as fs } from 'fs';
 
-// In-memory storage for blog posts
-let posts: BlogPost[] = [
-  {
-    id: '1',
-    title: 'Getting Started with Next.js',
-    slug: 'getting-started-with-nextjs',
-    author: 'John Doe',
-    content: 'Next.js is a powerful React framework that makes building full-stack web applications simple and efficient. {{block name="Top Picks" image="https://picsum.photos/id/1/200/300" products="SKU123,SKU456"}} In this post, we\'ll explore the basics of Next.js and how to get started with your first project.',
-    coverImage: 'https://picsum.photos/id/1/200/300',
-    publishedAt: '2024-01-15T10:00:00Z',
-    updatedAt: '2024-01-15T10:00:00Z',
-  },
-  {
-    id: '2',
-    title: 'Building Dynamic Components with React',
-    slug: 'building-dynamic-components-with-react',
-    author: 'Jane Smith',
-    content: 'React components are the building blocks of modern web applications. {{block name="Featured Products" image="https://picsum.photos/id/1/200/300" products="SKU789"}} Learn how to create reusable and dynamic components that can adapt to different data and user interactions.',
-    coverImage: 'https://picsum.photos/id/2/200/300',
-    publishedAt: '2024-01-20T14:30:00Z',
-    updatedAt: '2024-01-20T14:30:00Z',
-  },
-];
+const POSTS_FILE = path.join(process.cwd(), 'src', 'data', 'posts.json');
+
+// Helper to read posts from file
+async function readPosts(): Promise<BlogPost[]> {
+  try {
+    const data = await fs.readFile(POSTS_FILE, 'utf-8');
+    return JSON.parse(data) as BlogPost[];
+  } catch (err) {
+    return [];
+  }
+}
+
+// Helper to write posts to file
+async function writePosts(posts: BlogPost[]): Promise<void> {
+  await fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 2), 'utf-8');
+}
 
 // Generate a unique ID
 const generateId = (): string => {
@@ -39,24 +34,25 @@ const generateSlug = (title: string): string => {
 
 export const db = {
   // Get all posts
-  getAllPosts: (): BlogPost[] => {
-    return [...posts].sort((a, b) => 
-      new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
-    );
+  async getAllPosts(): Promise<BlogPost[]> {
+    return await readPosts();
   },
 
   // Get post by ID
-  getPostById: (id: string): BlogPost | undefined => {
+  async getPostById(id: string): Promise<BlogPost | undefined> {
+    const posts = await readPosts();
     return posts.find(post => post.id === id);
   },
 
   // Get post by slug
-  getPostBySlug: (slug: string): BlogPost | undefined => {
+  async getPostBySlug(slug: string): Promise<BlogPost | undefined> {
+    const posts = await readPosts();
     return posts.find(post => post.slug === slug);
   },
 
   // Create new post
-  createPost: (data: Omit<BlogPost, 'id' | 'slug' | 'publishedAt' | 'updatedAt'>): BlogPost => {
+  async createPost(data: Omit<BlogPost, 'id' | 'slug' | 'publishedAt' | 'updatedAt'>): Promise<BlogPost> {
+    const posts = await readPosts();
     const now = new Date().toISOString();
     const newPost: BlogPost = {
       ...data,
@@ -65,13 +61,14 @@ export const db = {
       publishedAt: now,
       updatedAt: now,
     };
-    
     posts.push(newPost);
+    await writePosts(posts);
     return newPost;
   },
 
   // Update post
-  updatePost: (id: string, data: Partial<BlogPost>): BlogPost | null => {
+  async updatePost(id: string, data: Partial<BlogPost>): Promise<BlogPost | null> {
+    const posts = await readPosts();
     const index = posts.findIndex(post => post.id === id);
     if (index === -1) return null;
 
@@ -87,15 +84,17 @@ export const db = {
     }
 
     posts[index] = updatedPost;
+    await writePosts(posts);
     return updatedPost;
   },
 
   // Delete post
-  deletePost: (id: string): boolean => {
+  async deletePost(id: string): Promise<boolean> {
+    const posts = await readPosts();
     const index = posts.findIndex(post => post.id === id);
     if (index === -1) return false;
-    
     posts.splice(index, 1);
+    await writePosts(posts);
     return true;
   },
 }; 

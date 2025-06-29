@@ -1,4 +1,7 @@
 @import "tailwindcss";
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 :root {
   --background: #ffffff;
@@ -20,7 +23,22 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  @apply min-h-screen font-sans bg-gradient-to-br from-indigo-50 via-white to-teal-50 text-gray-900;
+  transition: background 0.3s;
+}
+
+.card {
+  @apply bg-white rounded-2xl shadow-lg p-6 transition hover:shadow-2xl;
+}
+
+.btn-primary {
+  @apply bg-indigo-600 text-white px-6 py-2 rounded-lg font-semibold hover:bg-indigo-700 transition shadow;
+}
+
+input, textarea {
+  @apply border border-gray-300 rounded-lg px-3 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 transition;
+}
+
+label {
+  @apply text-gray-900 font-medium;
 }

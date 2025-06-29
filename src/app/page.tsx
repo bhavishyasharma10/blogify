@@ -2,12 +2,12 @@ import BlogCard from '@/components/BlogCard';
 import { db } from '@/lib/db';
 
 export default async function HomePage() {
-  const posts = db.getAllPosts();
+  const posts = await db.getAllPosts();
 
   return (
-    <main className="max-w-3xl mx-auto py-10">
-      <h1 className="text-3xl font-bold mb-8">Blogify — All Posts</h1>
-      <div className="grid gap-6">
+    <main className="max-w-5xl mx-auto py-10 px-2">
+      <h1 className="text-4xl font-extrabold mb-10 text-indigo-800 tracking-tight text-center drop-shadow-sm">All Blog Posts</h1>
+      <div className="grid gap-8 sm:grid-cols-2 lg:grid-cols-3">
         {posts.map((post: any) => (
           <BlogCard
             key={post.id}

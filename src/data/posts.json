@@ -1,0 +1,51 @@
+[
+  {
+    "id": "1",
+    "title": "Getting Started with Next.js",
+    "slug": "getting-started-with-nextjs",
+    "author": "John Doe",
+    "content": "Next.js is a powerful React framework that makes building full-stack web applications simple and efficient. {{block name=\"Top Picks\" image=\"https://picsum.photos/id/7/200/300\" products=\"SKU123,SKU456\"}} In this post, we'll explore the basics of Next.js and how to get started with your first project.",
+    "coverImage": "https://picsum.photos/id/2/200/300",
+    "publishedAt": "2024-01-15T10:00:00Z",
+    "updatedAt": "2024-01-15T10:00:00Z"
+  },
+  {
+    "id": "2",
+    "title": "Building Dynamic Components with React",
+    "slug": "building-dynamic-components-with-react",
+    "author": "Jane Smith",
+    "content": "React components are the building blocks of modern web applications. {{block name=\"Featured Products\" image=\"https://picsum.photos/id/6/200/300\" products=\"SKU789\"}} Learn how to create reusable and dynamic components that can adapt to different data and user interactions.",
+    "coverImage": "https://picsum.photos/id/1/200/300",
+    "publishedAt": "2024-01-20T14:30:00Z",
+    "updatedAt": "2024-01-20T14:30:00Z"
+  },
+  {
+    "id": "mchqsnxjodf899c1qje",
+    "title": "Monkey D Luffy",
+    "slug": "monkey-d-luffy",
+    "author": "bhavishya",
+    "content": "Next.js is a powerful React framework that makes building full-stack web applications simple and efficient. {{block name=\"Top Picks\" image=\"https://picsum.photos/id/7/200/300\" products=\"SKU123,SKU456\"}} In this post, we'll explore the basics of Next.js and how to get started with your first project.",
+    "coverImage": "https://robohash.org/random-text",
+    "publishedAt": "2025-06-29T14:05:30.534Z",
+    "updatedAt": "2025-06-29T14:05:30.534Z"
+  },
+  {
+    "title": "The Ultimate Workspace Setup",
+    "author": "Alex Johnson",
+    "content": "A productive workspace starts with the right tools. Here are our top picks for 2024:\n\n{{block name=\"Top Picks\" image=\"https://picsum.photos/id/7/200/300\" products=\"SKU123,SKU456\"}}\n\nWhat are your must-have items for your desk?",
+    "coverImage": "https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=800&q=80",
+    "id": "mchr1vrr4im2n8zd5b6",
+    "slug": "the-ultimate-workspace-setup",
+    "publishedAt": "2025-06-29T14:12:40.599Z",
+    "updatedAt": "2025-06-29T14:12:40.599Z"
+  },
+  {
+    "title": "wsws sw",
+    "author": "zad dc",
+    "content": "A productive workspace starts with the right tools. Here are our top picks for 2024:  {{block name=\"Top Picks\" image=\"https://picsum.photos/id/7/200/300\" products=\"SKU123,SKU456\"}}  What are your must-have items for your desk?a",
+    "id": "mchr9j1koiqae6x8lke",
+    "slug": "wsws-sw",
+    "publishedAt": "2025-06-29T14:18:37.352Z",
+    "updatedAt": "2025-06-29T14:18:37.352Z"
+  }
+]
