@@ -1,7 +1,7 @@
 "use client";
+import React, { type ReactNode } from 'react';
 import { useState } from "react";
 import { usePostForm } from "@/hooks/usePostForm";
-import ContentRenderer from "@/components/ContentRenderer";
 
 interface PostDetailEditableProps {
   post: {
@@ -12,9 +12,10 @@ interface PostDetailEditableProps {
     coverImage?: string;
     publishedAt: string;
   };
+  renderedContent: ReactNode;
 }
 
-export default function PostDetailEditable({ post }: PostDetailEditableProps) {
+export default function PostDetailEditable({ post, renderedContent }: PostDetailEditableProps) {
   const [editMode, setEditMode] = useState(false);
   const [optimistic, setOptimistic] = useState(post);
   const {
@@ -69,7 +70,7 @@ export default function PostDetailEditable({ post }: PostDetailEditableProps) {
           />
         )}
         <div className="prose prose-lg max-w-none">
-          <ContentRenderer content={optimistic.content} />
+          {renderedContent}
         </div>
       </>
     );

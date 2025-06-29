@@ -24,12 +24,19 @@ const generateId = (): string => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
 };
 
-// Generate a slug from title
-const generateSlug = (title: string): string => {
-  return title
+// Generate a slug from title and ensure uniqueness
+const generateSlug = (title: string, existingSlugs: string[] = []): string => {
+  let baseSlug = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
+  let slug = baseSlug;
+  let counter = 1;
+  while (existingSlugs.includes(slug)) {
+    slug = `${baseSlug}-${counter}`;
+    counter++;
+  }
+  return slug;
 };
 
 export const db = {
@@ -54,10 +61,11 @@ export const db = {
   async createPost(data: Omit<BlogPost, 'id' | 'slug' | 'publishedAt' | 'updatedAt'>): Promise<BlogPost> {
     const posts = await readPosts();
     const now = new Date().toISOString();
+    const existingSlugs = posts.map(post => post.slug);
     const newPost: BlogPost = {
       ...data,
       id: generateId(),
-      slug: generateSlug(data.title),
+      slug: generateSlug(data.title, existingSlugs),
       publishedAt: now,
       updatedAt: now,
     };
@@ -80,7 +88,8 @@ export const db = {
 
     // Regenerate slug if title changed
     if (data.title && data.title !== posts[index].title) {
-      updatedPost.slug = generateSlug(data.title);
+      const existingSlugs = posts.filter((p, i) => i !== index).map(p => p.slug);
+      updatedPost.slug = generateSlug(data.title, existingSlugs);
     }
 
     posts[index] = updatedPost;

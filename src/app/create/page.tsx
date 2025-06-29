@@ -66,9 +66,10 @@ export default function CreatePostPage() {
               value={fields.content}
               onChange={handleChange}
               disabled={loading}
-              placeholder="Write your post here. You can use {{block ...}} tags!"
+              placeholder="Write your post here. You can use {{block ...}} tags and Markdown!"
               autoComplete="off"
             />
+            <p className="text-xs text-gray-500 mt-1">Supports <a href="https://www.markdownguide.org/cheat-sheet/" target="_blank" rel="noopener noreferrer" className="underline">Markdown</a> and <code>{'{{block ...}}'}</code> tags.</p>
             {fieldErrors.content && <p className="text-red-600 text-sm mt-1">{fieldErrors.content}</p>}
           </div>
           {fieldErrors.server && <p className="text-red-600 text-sm mt-1">{fieldErrors.server}</p>}
