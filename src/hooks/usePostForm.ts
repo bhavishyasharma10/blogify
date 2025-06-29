@@ -47,7 +47,7 @@ export function usePostForm(initialValues = {}) {
         body: JSON.stringify(fields),
       });
       const data = await res.json();
-      console.log(data);
+
       if (!res.ok) {
         setFieldErrors({ server: data.details?.join(", ") || data.error || "Failed" });
         setLoading(false);

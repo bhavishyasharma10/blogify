@@ -106,4 +106,36 @@ export const db = {
     await writePosts(posts);
     return true;
   },
+
+  // Get filtered, searched, and paginated posts
+  async getFilteredPosts({ search = '', author = '', page = 1, limit = 6 }: { search?: string; author?: string; page?: number; limit?: number }) {
+    const allPosts = await readPosts();
+    let filtered = allPosts;
+
+    // Filter by author
+    if (author) {
+      filtered = filtered.filter(post => post.author.toLowerCase() === author.toLowerCase());
+    }
+
+    // Search in title, author, or content
+    if (search) {
+      const q = search.toLowerCase();
+      filtered = filtered.filter(post =>
+        post.title.toLowerCase().includes(q) ||
+        post.author.toLowerCase().includes(q) ||
+        post.content.toLowerCase().includes(q)
+      );
+    }
+
+    // Sort by publishedAt (newest first)
+    filtered = filtered.sort((a, b) => new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime());
+
+    // Pagination
+    const total = filtered.length;
+    const start = (page - 1) * limit;
+    const end = start + limit;
+    const posts = filtered.slice(start, end);
+
+    return { posts, total };
+  },
 }; 

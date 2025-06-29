@@ -2,15 +2,24 @@ import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
 import { validateBlogPost } from '@/lib/validation';
 
-// GET /api/posts - Fetch all posts
-export async function GET() {
+// GET /api/posts - Fetch all posts (with search, filter, pagination)
+export async function GET(request: NextRequest) {
   try {
-    const posts = await db.getAllPosts();
-    
+    const { searchParams } = new URL(request.url);
+    const search = searchParams.get('search') || '';
+    const author = searchParams.get('author') || '';
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    const limit = parseInt(searchParams.get('limit') || '6', 10);
+
+    const { posts, total } = await db.getFilteredPosts({ search, author, page, limit });
+
     return NextResponse.json({
       success: true,
       data: posts,
       count: posts.length,
+      total,
+      page,
+      limit,
     });
   } catch (error) {
     console.error('Error fetching posts:', error);
