@@ -3,6 +3,7 @@ import path from 'path';
 import { promises as fs } from 'fs';
 
 const POSTS_FILE = path.join(process.cwd(), 'src', 'data', 'posts.json');
+const COMMENTS_FILE = path.join(process.cwd(), 'src', 'data', 'comments.json');
 
 // Helper to read posts from file
 async function readPosts(): Promise<BlogPost[]> {
@@ -10,6 +11,7 @@ async function readPosts(): Promise<BlogPost[]> {
     const data = await fs.readFile(POSTS_FILE, 'utf-8');
     return JSON.parse(data) as BlogPost[];
   } catch (err) {
+    console.error('Error reading posts:', err);
     return [];
   }
 }
@@ -19,6 +21,22 @@ async function writePosts(posts: BlogPost[]): Promise<void> {
   await fs.writeFile(POSTS_FILE, JSON.stringify(posts, null, 2), 'utf-8');
 }
 
+// Helper to read comments from file
+async function readComments(): Promise<Record<string, import('@/types/blog').Comment[]>> {
+  try {
+    const data = await fs.readFile(COMMENTS_FILE, 'utf-8');
+    return JSON.parse(data);
+  } catch (err) {
+    console.error('Error reading comments:', err);
+    return {};
+  }
+}
+
+// Helper to write comments to file
+async function writeComments(comments: Record<string, import('@/types/blog').Comment[]>): Promise<void> {
+  await fs.writeFile(COMMENTS_FILE, JSON.stringify(comments, null, 2), 'utf-8');
+}
+
 // Generate a unique ID
 const generateId = (): string => {
   return Date.now().toString(36) + Math.random().toString(36).substr(2);
@@ -26,7 +44,7 @@ const generateId = (): string => {
 
 // Generate a slug from title and ensure uniqueness
 const generateSlug = (title: string, existingSlugs: string[] = []): string => {
-  let baseSlug = title
+  const baseSlug = title
     .toLowerCase()
     .replace(/[^a-z0-9]+/g, '-')
     .replace(/(^-|-$)/g, '');
@@ -137,5 +155,19 @@ export const db = {
     const posts = filtered.slice(start, end);
 
     return { posts, total };
+  },
+
+  // Get comments for a post (by postId or slug)
+  async getComments(postId: string): Promise<import('@/types/blog').Comment[]> {
+    const comments = await readComments();
+    return comments[postId] || [];
+  },
+
+  // Add a comment to a post
+  async addComment(postId: string, comment: import('@/types/blog').Comment): Promise<void> {
+    const comments = await readComments();
+    if (!comments[postId]) comments[postId] = [];
+    comments[postId].push(comment);
+    await writeComments(comments);
   },
 }; 

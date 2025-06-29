@@ -59,6 +59,7 @@ export async function PUT(
     try {
       body = await request.json();
     } catch (error) {
+      console.error('Error parsing request body:', error);
       return NextResponse.json(
         { success: false, error: 'Invalid JSON in request body' },
         { status: 400 }

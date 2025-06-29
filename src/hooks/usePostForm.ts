@@ -1,13 +1,21 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
-function normalizeFields(fields: any = {}) {
+function normalizeFields(fields: unknown = {}) {
+  if (typeof fields !== 'object' || fields === null) {
+    return {
+      title: '',
+      author: '',
+      content: '',
+      coverImage: '',
+    };
+  }
+  const obj = fields as Record<string, unknown>;
   return {
-    title: fields.title || "",
-    coverImage: fields.coverImage || "",
-    author: fields.author || "",
-    content: fields.content || "",
-    ...fields,
+    title: typeof obj.title === 'string' ? obj.title : '',
+    author: typeof obj.author === 'string' ? obj.author : '',
+    content: typeof obj.content === 'string' ? obj.content : '',
+    coverImage: typeof obj.coverImage === 'string' ? obj.coverImage : '',
   };
 }
 
@@ -63,7 +71,7 @@ export function usePostForm(initialValues = {}) {
   }
 
   // Helper for edit page to update fields when initialValues change
-  function setFieldsNormalized(newFields: any) {
+  function setFieldsNormalized(newFields: unknown) {
     setFields(normalizeFields(newFields));
   }
 

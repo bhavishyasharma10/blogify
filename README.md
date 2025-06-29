@@ -1,36 +1,88 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Blogify
 
-## Getting Started
+A modern, full-featured blogging platform built with Next.js (App Router), TypeScript, and TailwindCSS. Supports CRUD for blog posts, dynamic custom blocks (like product showcases), Markdown, SEO-friendly slugs, search/filter, pagination, and a comment system—all with a beautiful, responsive UI.
 
-First, run the development server:
+---
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## 🚀 Tech Stack
+- **Framework:** Next.js 14+ (App Router)
+- **Language:** TypeScript
+- **Styling:** TailwindCSS
+- **Rendering:** Server-Side Rendering (SSR) where appropriate
+- **Database:** File-based JSON (no external DB required)
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+---
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## ✨ Features
+- **Home Page:** SSR list of blog posts with title, author, snippet, cover image, and published date
+- **Post Detail Page:** SSR, full content with Markdown and dynamic `{{block}}` tags (renders custom UI like product showcases)
+- **Create/Edit Blog:** Modern form with validation, Markdown support, and block tag hints
+- **API:** RESTful endpoints for posts and comments
+- **SEO-Friendly Slugs:** URLs like `/posts/your-post-title`
+- **Search & Filter:** Search by keyword and filter by author
+- **Pagination:** "Load More" button for infinite scroll-like UX
+- **Comment System:** Add/view comments per post (name, body, date)
+- **Robust Validation:** Both client and server-side
+- **Responsive UI:** Clean, modern, and mobile-friendly
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🛠️ Setup Instructions
 
-To learn more about Next.js, take a look at the following resources:
+1. **Clone the repo:**
+   ```bash
+   git clone <your-repo-url>
+   cd Blogify
+   ```
+2. **Install dependencies:**
+   ```bash
+   npm install
+   ```
+3. **Run the development server:**
+   ```bash
+   npm run dev
+   ```
+4. **Open in your browser:**
+   [http://localhost:3000](http://localhost:3000)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+---
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+## 📚 API Endpoints
 
-## Deploy on Vercel
+### Posts
+- `GET    /api/posts` — List posts (supports `search`, `author`, `page`, `limit`)
+- `GET    /api/posts/[id]` — Get post by ID
+- `POST   /api/posts` — Create post
+- `PUT    /api/posts/[id]` — Edit post
+- `DELETE /api/posts/[id]` — Delete post
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Comments
+- `GET    /api/comments?postId=...` — List comments for a post
+- `POST   /api/comments` — Add a comment to a post
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---
+
+## 📁 File Structure (Key Parts)
+- `src/app/` — App Router pages (home, posts, create, edit)
+- `src/components/` — UI components (BlogCard, ContentRenderer, ProductShowcase, CommentSection, etc.)
+- `src/data/` — JSON files for posts, products, and comments
+- `src/lib/` — DB and block parsing logic
+- `src/types/` — TypeScript types
+
+---
+
+## 📋 Requirements Checklist
+- [x] CRUD for blog posts
+- [x] Dynamic `{{block}}` tags with custom UI
+- [x] File-based JSON DB
+- [x] Modern, responsive UI
+- [x] Markdown support
+- [x] SEO-friendly slugs
+- [x] Search, filter, and pagination
+- [x] Comment system
+- [x] Robust validation
+
+---
+
+## License
+This project is for evaluation purposes only and not for commercial use.

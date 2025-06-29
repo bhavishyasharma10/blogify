@@ -1,7 +1,8 @@
 "use client";
-import React, { type ReactNode } from 'react';
+import React, { type ReactNode, Suspense } from 'react';
 import { useState } from "react";
 import { usePostForm } from "@/hooks/usePostForm";
+import CommentSection from "@/components/CommentSection";
 
 interface PostDetailEditableProps {
   post: {
@@ -13,9 +14,10 @@ interface PostDetailEditableProps {
     publishedAt: string;
   };
   renderedContent: ReactNode;
+  postId: string;
 }
 
-export default function PostDetailEditable({ post, renderedContent }: PostDetailEditableProps) {
+export default function PostDetailEditable({ post, renderedContent, postId }: PostDetailEditableProps) {
   const [editMode, setEditMode] = useState(false);
   const [optimistic, setOptimistic] = useState(post);
   const {
@@ -60,7 +62,7 @@ export default function PostDetailEditable({ post, renderedContent }: PostDetail
           </button>
         </div>
         <div className="text-gray-500 mb-4 text-base">
-          By <span className="font-semibold text-gray-700">{optimistic.author}</span> • <span className="text-indigo-500">{new Date(optimistic.publishedAt).toLocaleDateString()}</span>
+          By <span className="font-semibold text-gray-700">{optimistic.author}</span> • <span className="text-indigo-500">{(() => { const d = new Date(optimistic.publishedAt); return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`; })()}</span>
         </div>
         {optimistic.coverImage && (
           <img
@@ -72,6 +74,10 @@ export default function PostDetailEditable({ post, renderedContent }: PostDetail
         <div className="prose prose-lg max-w-none">
           {renderedContent}
         </div>
+        <hr className="my-8" />
+        <Suspense fallback={null}>
+          <CommentSection postId={postId} />
+        </Suspense>
       </>
     );
   }
@@ -119,7 +125,7 @@ export default function PostDetailEditable({ post, renderedContent }: PostDetail
           required
         />
         {" "}•{" "}
-        <span className="text-indigo-500">{new Date(post.publishedAt).toLocaleDateString()}</span>
+        <span className="text-indigo-500">{(() => { const d = new Date(post.publishedAt); return `${d.getMonth() + 1}/${d.getDate()}/${d.getFullYear()}`; })()}</span>
       </div>
       <input
         name="coverImage"

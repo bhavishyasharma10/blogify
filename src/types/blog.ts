@@ -27,4 +27,10 @@ export interface ParsedBlock {
   type: 'block';
   attributes: BlockAttributes;
   originalText: string;
+}
+
+export interface Comment {
+  name: string;
+  body: string;
+  createdAt: string;
 } 

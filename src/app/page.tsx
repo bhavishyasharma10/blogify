@@ -105,7 +105,7 @@ export default function HomePage() {
         {posts.length === 0 && !loading && !initialLoad && (
           <div className="col-span-full text-center text-gray-500 py-10">No posts found.</div>
         )}
-        {posts.map((post: any) => (
+        {posts.map((post: BlogPost) => (
           <BlogCard
             key={post.id}
             id={post.id}

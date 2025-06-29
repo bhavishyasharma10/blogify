@@ -11,23 +11,23 @@
   },
   {
     "id": "2",
-    "title": "Building Dynamic Components with React",
-    "slug": "building-dynamic-components-with-react",
-    "author": "Jane Smith",
+    "title": "Building Dynamic Components with Angular",
+    "slug": "building-dynamic-components-with-angular",
+    "author": "Jadden Smith",
     "content": "React components are the building blocks of modern web applications. {{block name=\"Featured Products\" image=\"https://picsum.photos/id/6/200/300\" products=\"SKU789\"}} Learn how to create reusable and dynamic components that can adapt to different data and user interactions.",
-    "coverImage": "https://picsum.photos/id/1/200/300",
+    "coverImage": "https://picsum.photos/id/10/200/300",
     "publishedAt": "2024-01-20T14:30:00Z",
-    "updatedAt": "2024-01-20T14:30:00Z"
+    "updatedAt": "2025-06-29T14:59:01.534Z"
   },
   {
     "id": "mchqsnxjodf899c1qje",
-    "title": "Monkey D Luffy",
-    "slug": "monkey-d-luffy",
+    "title": "Monkey D Luffy King of pirates",
+    "slug": "monkey-d-luffy-king-of-pirates",
     "author": "bhavishya",
     "content": "Next.js is a powerful React framework that makes building full-stack web applications simple and efficient. {{block name=\"Top Picks\" image=\"https://picsum.photos/id/7/200/300\" products=\"SKU123,SKU456\"}} In this post, we'll explore the basics of Next.js and how to get started with your first project.",
     "coverImage": "https://robohash.org/random-text",
     "publishedAt": "2025-06-29T14:05:30.534Z",
-    "updatedAt": "2025-06-29T14:05:30.534Z"
+    "updatedAt": "2025-06-29T15:00:16.298Z"
   },
   {
     "title": "The Ultimate Workspace Setup",
@@ -40,12 +40,32 @@
     "updatedAt": "2025-06-29T14:12:40.599Z"
   },
   {
-    "title": "wsws sw",
-    "author": "zad dc",
+    "title": "For You",
+    "author": "zad ane",
     "content": "A productive workspace starts with the right tools. Here are our top picks for 2024:  {{block name=\"Top Picks\" image=\"https://picsum.photos/id/7/200/300\" products=\"SKU123,SKU456\"}}  What are your must-have items for your desk?a",
     "id": "mchr9j1koiqae6x8lke",
-    "slug": "wsws-sw",
+    "slug": "for-you",
     "publishedAt": "2025-06-29T14:18:37.352Z",
-    "updatedAt": "2025-06-29T14:18:37.352Z"
+    "updatedAt": "2025-06-29T15:26:42.337Z",
+    "coverImage": "https://picsum.photos/id/10/200/300"
+  },
+  {
+    "title": "Meet the future Pirate King!",
+    "author": "Sam Khan",
+    "content": "{{block name=\"Luffy's Gear\" image=\"https://robohash.org/luffy\" products=\"SKU123,SKU789\"}}\n\nWow such a greate King \n\nWe won",
+    "id": "mchrhr2f4khlp6d31xh",
+    "slug": "meet-the-future-pirate-king",
+    "publishedAt": "2025-06-29T14:25:00.999Z",
+    "updatedAt": "2025-06-29T15:02:57.063Z"
+  },
+  {
+    "title": "nds mxns, ,s",
+    "author": "ssw ws",
+    "content": "React components are the building blocks of modern web applications. {{block name=\\\"Featured Products\\\" image=\\\"https://picsum.photos/id/6/200/300\\\" products=\\\"SKU789\\\"}} Learn how to create reusable and dynamic components that can adapt to different data and user interactions.",
+    "coverImage": "https://robohash.org/random-text",
+    "id": "mchtqxf7kfmpzg7kfwn",
+    "slug": "nds-mxns-s",
+    "publishedAt": "2025-06-29T15:28:08.371Z",
+    "updatedAt": "2025-06-29T15:28:08.371Z"
   }
 ]

@@ -80,10 +80,3 @@ export function validateBlock(attributes: BlockAttributes): { isValid: boolean; 
     errors,
   };
 }
-
-// Get block type based on attributes
-export function getBlockType(attributes: BlockAttributes): string {
-  // For now, we only have one block type: product showcase
-  // In the future, you could add more block types based on attributes
-  return 'product-showcase';
-} 
