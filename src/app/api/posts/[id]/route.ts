@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { BlogPostFormData } from '@/types/blog';
+import { validatePartialBlogPost } from '@/lib/validation';
 
 // GET /api/posts/[id] - Fetch post by ID
 export async function GET(
@@ -55,7 +55,7 @@ export async function PUT(
     }
     
     // Parse request body with error handling
-    let body: Partial<BlogPostFormData>;
+    let body;
     try {
       body = await request.json();
     } catch (error) {
@@ -74,24 +74,15 @@ export async function PUT(
       );
     }
     
-    // Validation for provided fields
-    if (body.title !== undefined && !body.title.trim()) {
+    // Validate the partial blog post data
+    const validation = validatePartialBlogPost(body);
+    if (!validation.isValid) {
       return NextResponse.json(
-        { success: false, error: 'Title cannot be empty' },
-        { status: 400 }
-      );
-    }
-    
-    if (body.author !== undefined && !body.author.trim()) {
-      return NextResponse.json(
-        { success: false, error: 'Author cannot be empty' },
-        { status: 400 }
-      );
-    }
-    
-    if (body.content !== undefined && !body.content.trim()) {
-      return NextResponse.json(
-        { success: false, error: 'Content cannot be empty' },
+        { 
+          success: false, 
+          error: 'Validation failed',
+          details: validation.errors 
+        },
         { status: 400 }
       );
     }

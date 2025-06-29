@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { db } from '@/lib/db';
-import { BlogPostFormData } from '@/types/blog';
+import { validateBlogPost } from '@/lib/validation';
 
 // GET /api/posts - Fetch all posts
 export async function GET() {
@@ -25,7 +25,7 @@ export async function GET() {
 export async function POST(request: NextRequest) {
   try {
     // Parse request body with error handling
-    let body: BlogPostFormData;
+    let body;
     try {
       body = await request.json();
     } catch (error) {
@@ -35,24 +35,15 @@ export async function POST(request: NextRequest) {
       );
     }
     
-    // Validation
-    if (!body.title?.trim()) {
+    // Validate the blog post data
+    const validation = validateBlogPost(body);
+    if (!validation.isValid) {
       return NextResponse.json(
-        { success: false, error: 'Title is required' },
-        { status: 400 }
-      );
-    }
-    
-    if (!body.author?.trim()) {
-      return NextResponse.json(
-        { success: false, error: 'Author is required' },
-        { status: 400 }
-      );
-    }
-    
-    if (!body.content?.trim()) {
-      return NextResponse.json(
-        { success: false, error: 'Content is required' },
+        { 
+          success: false, 
+          error: 'Validation failed',
+          details: validation.errors 
+        },
         { status: 400 }
       );
     }
