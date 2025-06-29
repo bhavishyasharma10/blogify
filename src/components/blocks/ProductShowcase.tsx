@@ -35,7 +35,7 @@ export default function ProductShowcase({ attributes }: ProductShowcaseProps) {
             alt={name}
             className="w-8 h-8 rounded object-cover"
             onError={(e) => {
-              e.currentTarget.style.display = 'none';
+              e.currentTarget.src = '/file.svg';
             }}
           />
         )}

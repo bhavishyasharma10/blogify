@@ -1,15 +1,19 @@
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 
+function normalizeFields(fields: any = {}) {
+  return {
+    title: fields.title || "",
+    coverImage: fields.coverImage || "",
+    author: fields.author || "",
+    content: fields.content || "",
+    ...fields,
+  };
+}
+
 export function usePostForm(initialValues = {}) {
   const router = useRouter();
-  const [fields, setFields] = useState({
-    title: "",
-    coverImage: "",
-    author: "",
-    content: "",
-    ...initialValues,
-  });
+  const [fields, setFields] = useState(normalizeFields(initialValues));
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<{ [key: string]: string }>({});
@@ -49,7 +53,7 @@ export function usePostForm(initialValues = {}) {
         setLoading(false);
         return false;
       }
-      router.push(`/posts/${data.data.slug}`);
+      if (!id) router.push(`/posts/${data.data.slug}`);
       return true;
     } catch {
       setError("Network error. Please try again.");
@@ -58,9 +62,14 @@ export function usePostForm(initialValues = {}) {
     }
   }
 
+  // Helper for edit page to update fields when initialValues change
+  function setFieldsNormalized(newFields: any) {
+    setFields(normalizeFields(newFields));
+  }
+
   return {
     fields,
-    setFields,
+    setFields: setFieldsNormalized,
     handleChange,
     loading,
     error,
