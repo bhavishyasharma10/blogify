@@ -2,6 +2,8 @@
 
 A modern, full-featured blogging platform built with Next.js (App Router), TypeScript, and TailwindCSS. Supports CRUD for blog posts, dynamic custom blocks (like product showcases), Markdown, SEO-friendly slugs, search/filter, pagination, and a comment system—all with a beautiful, responsive UI.
 
+Link: https://blogify-chi-beige.vercel.app/
+
 ---
 
 ## 🚀 Tech Stack
